@@ -352,9 +352,10 @@ const reasonsMap = { //https://ai.google.dev/api/rest/v1/GenerateContentResponse
 const SEP = "\n\n|>";
 const transformCandidates = (key, cand) => ({
   index: cand.index || 0, // 0-index is absent in new -002 models response
-  [key]: {
+  [key]: {  // [key] 对象开始
     role: "assistant",
-    content: (cand.content?.parts || []).map(p => p.text).join(SEP) ,
+    content: (cand.content?.parts || []).map(p => p.text).join(SEP) 
+  },  // 关键修复：闭合 [key] 对象的 }
   logprobs: null,
   finish_reason: reasonsMap[cand.finishReason] || cand.finishReason,
 });
